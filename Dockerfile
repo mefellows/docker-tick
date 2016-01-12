@@ -23,8 +23,16 @@ ADD ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./influxdb.conf /etc/influxdb/influxdb.conf
 ADD ./telegraf.conf /opt/telegraf/telegraf.conf
 ADD ./chronograf.toml /opt/chronograf/config.toml
+RUN mkdir /opt/kapacitor/
+ADD ./kapacitor.conf /opt/kapacitor/kapacitor.conf
+RUN rm *.deb
+RUN mkdir -p /data/chronograf && chown -R chronograf:chronograf /data/chronograf && chmod 777 /data/chronograf
 
-#RUN influxd -config /etc/influxdb/influxdb.conf && curl -G http://localhost:8086/query --data-urlencode "q=CREATE DATABASE telegraf"
+VOLUME /data/influx/data
+VOLUME /data/influx/meta
+VOLUME /data/influx/wal
+VOLUME /data/kapacitor
+VOLUME /data/chronograf
 
 EXPOSE  80
 EXPOSE 8125/udp

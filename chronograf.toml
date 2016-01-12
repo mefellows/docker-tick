@@ -9,7 +9,8 @@ Bind = "0.0.0.0:10000"
 
 # Path to local database file to use or create for storing Chronograf application data.
 # Can be overridden with environment variable CHRONOGRAF_LOCAL_DATABASE.
-LocalDatabase = "/opt/chronograf/chronograf.db"
+LocalDatabase = "/data/chronograf/chronograf.db"
+# LocalDatabase = "/tmp/data/chronograf/chronograf.db"
 
 # DSN to connect to MySQL for storing Chronograf application data.
 # If set, takes precedence over LocalDatabase setting.
