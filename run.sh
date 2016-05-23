@@ -1,4 +1,5 @@
 #!/bin/bash
+DOCKER_MACHINE_NAME=default
 VOLUME_CONTAINER_GUID=$(docker ps -a | grep tick-data | egrep -o "[a-z0-9]{12}")
 EXISTS=true
 TICK_RUNNING=$(docker ps -a | egrep "tick" | egrep -o "[a-z0-9]{12}")
@@ -32,7 +33,7 @@ docker run \
   --volumes-from $VOLUME_CONTAINER_GUID \
   mefellows/tick
 
-HOST=$(docker-machine env dev | grep DOCKER_HOST | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
+HOST=$(docker-machine env ${DOCKER_MACHINE_NAME} | grep DOCKER_HOST | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
 echo ">> Waiting for Influx to be available on active Docker Host (${HOST})"
 if command -v nc 2>&1> /dev/null; then
   WAIT=0
